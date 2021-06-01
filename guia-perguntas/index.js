@@ -4,12 +4,12 @@ const port = 8080
 
 // Definindo o View Engine para o EJS
 app.set('view engine', 'ejs');
+// Definindo o Diretório para os Arquivos Estáticos
+app.use(express.static('public'));
 
-app.get('/:page/:nome/:language', (req,  res) => {
-    var nome = req.params.nome
-    var language = req.params.language
-    var page = req.params.page
-    res.render('home', { nome, language, page });
+
+app.get('/', (req, res) => {
+    res.render('index')
 });
 
 
