@@ -2,6 +2,13 @@ body {
     background-color: #eceff1;
 }
 
-#formulario-perguntas {
-    margin-top: 5vh;
+.menu img {
+    width: 8rem;
+    height: 2rem;
+}
+
+.menu a {
+    font-size: 0.9rem;
+    font-family: Arial;
+    font-weight: 100;
 }
