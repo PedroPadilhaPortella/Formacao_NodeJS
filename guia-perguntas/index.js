@@ -12,5 +12,9 @@ app.get('/', (req, res) => {
     res.render('index')
 });
 
+app.get('/ask', (req, res) => {
+    res.render('ask')
+});
+
 
 app.listen(port, () => console.log(`Running at port ${port}\nhttp://localhost:${port}`))
