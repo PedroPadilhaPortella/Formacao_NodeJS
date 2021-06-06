@@ -1,0 +1,19 @@
+<%-include ('partials/header')%>
+
+<body>
+    <%-include ('partials/navbar')%>
+    <div class="container container-width">
+        <h1 class="text-center">Guia de Perguntas</h1>
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h2><%=pergunta.titulo%></h2>
+            </div>
+            <div class="card body p-3">
+                <p><%=pergunta.descricao%></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<%-include ('partials/footer')%>

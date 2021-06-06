@@ -12,3 +12,7 @@ body {
     font-family: Arial;
     font-weight: 100;
 }
+
+.container-width {
+    width: 50rem;
+}

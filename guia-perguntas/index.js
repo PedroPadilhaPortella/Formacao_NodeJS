@@ -1,6 +1,8 @@
+const express = require('express')
 const bodyparser = require('body-parser')
 const connection = require('./database/database')
-const express = require('express')
+const PerguntasContext = require('./database/Perguntas')
+
 const app = express()
 const port = 8080
 
@@ -22,7 +24,22 @@ app.use(express.static('public'));
 
 //routes
 app.get('/', (req, res) => {
-    res.render('index')
+    PerguntasContext.findAll({ raw: true, order: [ ['updatedAt', 'DESC'] ] })
+        .then(perguntas => {
+            res.render('index', { perguntas })
+        });
+});
+
+app.get('/ask/:id', (req, res) => {
+    const id = req.params.id
+
+    PerguntasContext.findOne({ where: { id: id }, raw: true, })
+        .then(pergunta => {
+            if(pergunta)
+                res.render('question', { pergunta })
+            else
+                res.redirect('/')
+        });
 });
 
 app.get('/ask', (req, res) => {
@@ -30,7 +47,9 @@ app.get('/ask', (req, res) => {
 });
 
 app.post('/save-question', (req, res) => {
-    res.json(req.body)
+    const titulo = req.body.title
+    const descricao = req.body.description
+    PerguntasContext.create({ titulo, descricao }).then(() => res.redirect('/'))
 });
 
 
