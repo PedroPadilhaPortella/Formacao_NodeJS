@@ -16,3 +16,9 @@ body {
 .container-width {
     width: 50rem;
 }
+
+.data-pergunta {
+    float: right;
+    padding-top: 2rem;
+    margin-bottom: 0;
+}
