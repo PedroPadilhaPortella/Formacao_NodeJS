@@ -2,23 +2,22 @@ body {
     background-color: #eceff1;
 }
 
-.menu img {
-    width: 8rem;
-    height: 2rem;
+.menu a img {
+    width: 10rem;
+    height: 2.6rem;
 }
 
 .menu a {
-    font-size: 0.9rem;
     font-family: Arial;
     font-weight: 100;
+    text-decoration: none;
 }
 
 .container-width {
     width: 50rem;
 }
 
-.data-pergunta {
-    float: right;
-    padding-top: 2rem;
-    margin-bottom: 0;
+
+.table-content {
+    text-align: center;
 }
