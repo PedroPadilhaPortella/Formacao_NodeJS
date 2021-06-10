@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const connection = require("./database/database")
+const ArticleModel = require('./models/Article')
+const CategoryModel = require('./models/Category')
 
 //Import das controllers
 const articlesController = require('./controllers/ArticlesController')
