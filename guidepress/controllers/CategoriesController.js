@@ -16,7 +16,7 @@ router.get('/admin/new', (req, res) => {
 });
 
 // Salvar Categoria
-router.post('/save', (req, res) => {
+router.post('/admin/save', (req, res) => {
     const title = req.body.title
     
     if(title != undefined && title != '') {

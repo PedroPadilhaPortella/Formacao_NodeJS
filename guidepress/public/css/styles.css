@@ -7,16 +7,25 @@ body {
     height: 2.6rem;
 }
 
-.menu a {
+.menu div {
+    display: flex;
+    align-items: baseline;
+}
+
+.menu div a {
     font-family: Arial;
     font-weight: 100;
     text-decoration: none;
+    color: rgba(256, 256, 256, 0.5);
+}
+
+.menu div a:hover {
+    color: rgba(256, 256, 256, 0.9);
 }
 
 .container-width {
     width: 50rem;
 }
-
 
 .table-content {
     text-align: center;
