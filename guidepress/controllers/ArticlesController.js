@@ -5,7 +5,9 @@ const ArticleModel = require('../models/Article');
 
 // Lista de Artigos
 router.get('/admin', (req, res) => {
-    CategoryModel.findAll({ raw: true }).then((articles) => {
+    ArticleModel.findAll({ raw: true, include: [{ model: CategoryModel, required: true }] })
+    .then((articles) => {
+        console.log(articles);
         res.render('admin/articles/index', { articles })
     })
 });
@@ -32,5 +34,29 @@ router.post('/admin/save', (req, res) => {
     }
 });
 
+// Excluir Artigo
+router.post('/admin/delete', (req, res) => {
+    const id = req.body.id
+    ArticleModel.destroy({ where: { id }})
+    .then(() => res.redirect('/articles/admin'))
+});
+
+// Editar Artigo
+router.get('/admin/edit/:id', (req, res) => {
+    const id = req.params.id
+    if(!isNaN(id)) {
+        ArticleModel.findByPk(id).then((article) => {
+            if(article != undefined) {
+                CategoryModel.findAll({ raw: true}).then(categories => {
+                    res.render('admin/articles/edit', { article, categories })
+                });
+            } else {
+                res.redirect('/articles/admin')
+            }
+        }).catch(() => res.redirect('/articles/admin'))
+    } else {
+        res.redirect('/articles/admin')
+    }
+});
 
 module.exports = router;

@@ -25,7 +25,9 @@ app.use('/categories', categoriesController)
 app.use('/articles', articlesController)
 
 app.get('/', (req, res) => {
-    res.render('index')
+    ArticleModel.findAll({ raw: true }).then((articles) => {
+        res.render('index', { articles})
+    });
 });
 
 

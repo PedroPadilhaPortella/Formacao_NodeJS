@@ -1,4 +1,28 @@
 <%-include('partials/header')%>
 
+<%-include('./partials/navbar')%>
+
+<body>
+    <div class="container my-4 container-width">
+        
+        <hr>
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to GuidePress!</h1>
+            <p class="lead">Where developers find their answers, GuidePress is a online . . .</p>
+            <hr class="my-2">
+            <p>It uses utility classes for typography and spacing to space 
+                content out within the larger container.</p>
+        </div>
+
+        <% articles.forEach((article) => { %>
+            <div class="card-header">
+                <h3><%=article.title%></h3>
+            </div>
+            <div class="card-body">
+                <a href="" class="btn btn-info">Open Article</a>
+            </div>
+        <% }) %>
+    </div>
+</body>
 
 <%-include('partials/footer')%>
