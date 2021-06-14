@@ -30,5 +30,19 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/:slug', (req, res) => {
+    const slug = req.params.slug
+
+    ArticleModel.findOne({ where: { slug }, order: [['id', 'DESC']] })
+        .then((article) => {
+            if(article != undefined) {
+                res.render('article', { article })
+            } else {
+                res.redirect('/')
+            }
+        })
+        .catch(() => res.redirect('/'))
+});
+
 
 app.listen(port, () => console.log(`Server running at https://localhost:${port}`))

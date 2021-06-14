@@ -6,7 +6,7 @@
     <div class="container my-4 container-width">
         
         <hr>
-        <div class="jumbotron">
+        <div class="jumbotron p-2">
             <h1 class="display-4">Welcome to GuidePress!</h1>
             <p class="lead">Where developers find their answers, GuidePress is a online . . .</p>
             <hr class="my-2">
@@ -19,7 +19,7 @@
                 <h3><%=article.title%></h3>
             </div>
             <div class="card-body">
-                <a href="" class="btn btn-info">Open Article</a>
+                <a href="<%=article.slug%>" class="btn btn-info">Open Article</a>
             </div>
         <% }) %>
     </div>
