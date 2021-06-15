@@ -15,17 +15,25 @@
                     value="<%=article.title%>" placeholder="Define a title">
                 <select name="category" id="category" class="form-control my-3">
                     <% categories.forEach((category) => { %>
-                        <option value="<%=category.id%>"><%=category.title%></option>
+                        <% if(category.id == article.categoryId) { %>
+                            <option value="<%=category.id%>" selected><%=category.title%></option>
+                        <% } else { %>
+                            <option value="<%=category.id%>"><%=category.title%></option>
+                        <% }  %>
                     <% }) %>
                 </select>
                 <textarea class="form-control" name="body" id="article"
-                    placeholder="Write your Article here. . ." value="<%=article.body%>"
+                    placeholder="Write your Article here. . ." value=""
                 ></textarea>
-                <button class="btn btn-primary mt-3">Save</button>
+                <button class="btn btn-primary mt-3">Save Changes</button>
                 
             </form>
         </div>
     </div>
+</div>
+
+<div id="content" style="display: none;">
+    <%-article.body%>
 </div>
 
 <script src="/tinymce/tinymce.min.js"></script>
@@ -39,7 +47,10 @@
             preview hr save searchreplace wordcount 
             fullscreen insertdatetime media table paste emoticons
             `
-        ]
+        ],
+        init_instance_callback: () => {
+            tinymce.get('article').setContent($('#content').html())
+        }
     });
 </script>
 

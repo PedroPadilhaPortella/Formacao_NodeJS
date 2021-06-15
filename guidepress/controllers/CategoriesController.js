@@ -64,7 +64,7 @@ router.post('/admin/update', (req, res) => {
     } else {
         res.redirect(`/categories/admin/edit/${id}`)
     }
-})
+});
 
 
 module.exports = router;

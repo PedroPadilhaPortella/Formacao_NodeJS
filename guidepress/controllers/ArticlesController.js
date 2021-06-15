@@ -49,7 +49,7 @@ router.get('/admin/edit/:id', (req, res) => {
             if(article != undefined) {
                 CategoryModel.findAll({ raw: true}).then(categories => {
                     res.render('admin/articles/edit', { article, categories })
-                });
+                }).catch(() => res.redirect('/articles/admin'))
             } else {
                 res.redirect('/articles/admin')
             }
@@ -58,5 +58,22 @@ router.get('/admin/edit/:id', (req, res) => {
         res.redirect('/articles/admin')
     }
 });
+
+// Atualizar Artigo
+router.post('/admin/update', (req, res) => {
+    const id = req.body.id
+    const title = req.body.title
+    const categoryId = req.body.category
+    const body = req.body.body
+
+    if(title == '' || title == null || body == '' || body == null || categoryId == null) {
+        res.redirect(`/articles/admin/edit/${id}`)
+    } else {
+        const slug = slugify(title)
+        ArticleModel.update({ title, slug, body, categoryId }, {where: { id }})
+            .then(() => res.redirect('/articles/admin'))
+            .catch(() => { res.redirect(`/articles/admin/edit/:${id}`)})
+    }
+})
 
 module.exports = router;
