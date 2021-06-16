@@ -1,12 +1,9 @@
 <body>
     <nav class="navbar navbar-dark bg-info menu">
-        <div>
-            <a class="navbar-brand" href="/"><h2>GuidePress |</h2></a>
+        <div class=" d-flex flex-nowrap">
+            <a class="navbar-brand " href="/"><h2>GuidePress |</h2></a>
             <% categories.forEach(category => { %>
-                <a href="/category/<%=category.slug%>" class="nav-link text-capitalize"><%=category.title%></a>
+                <a href="/category/<%=category.slug%>" class="nav-link text-capitalize small p-1 m-1"><%=category.title%></a>
             <% }) %>
         </div>
-        <a class="navbar-brand" href="/">
-            <img src="/img/guia.png" alt="guia">
-        </a>
     </nav>

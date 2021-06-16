@@ -23,4 +23,6 @@ Category.hasMany(Article);
 
 // Article.sync({ force: true });
 
+
+
 module.exports = Article;

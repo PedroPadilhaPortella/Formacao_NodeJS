@@ -7,7 +7,6 @@ const ArticleModel = require('../models/Article');
 router.get('/admin', (req, res) => {
     ArticleModel.findAll({ raw: true, include: [{ model: CategoryModel, required: true }] })
     .then((articles) => {
-        console.log(articles);
         res.render('admin/articles/index', { articles })
     })
 });
@@ -74,6 +73,7 @@ router.post('/admin/update', (req, res) => {
             .then(() => res.redirect('/articles/admin'))
             .catch(() => { res.redirect(`/articles/admin/edit/:${id}`)})
     }
-})
+});
+
 
 module.exports = router;

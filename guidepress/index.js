@@ -25,7 +25,7 @@ app.use('/categories', categoriesController)
 app.use('/articles', articlesController)
 
 app.get('/', (req, res) => {
-    ArticleModel.findAll({ raw: true }).then((articles) => {
+    ArticleModel.findAll({ order: [['id', 'DESC']], limit: 4 }).then((articles) => {
         CategoryModel.findAll({ raw: true }).then(categories => {
             res.render('index', { articles, categories})
         });
@@ -62,6 +62,30 @@ app.get('/category/:slug', (req, res) => {
         }
     }).catch(() => res.redirect('/'))
 });
+
+app.get('/articles/page/:num', (req, res) => {
+    const page = +req.params.num;
+    let offset = 0;
+    const limit = 4;
+    
+    if(isNaN(page) || page <= 1)
+        offset = 0;
+    else
+        offset = (parseInt(page) - 1) * 4;
+
+    ArticleModel.findAndCountAll({ limit, offset, order: [['id', 'DESC']] })
+        .then(articles => {
+            let next = true
+            if(offset + limit >= articles.count) 
+                next = false
+            
+            const result = { articles, page, next }
+            
+            CategoryModel.findAll().then(categories => {
+                res.render('page', { result, categories})
+            });
+        });
+}); 
 
 
 app.listen(port, () => console.log(`Server running at https://localhost:${port}`))

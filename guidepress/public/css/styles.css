@@ -23,7 +23,15 @@ body {
     color: rgba(256, 256, 256, 0.9);
 }
 
-.container-width {
+.container-wide {
+    width: 100rem;
+}
+
+.container-meddium {
+    width: 75rem;
+}
+
+.container-narrow {
     width: 50rem;
 }
 

@@ -2,7 +2,7 @@
 
 <%-include('../../partials/admin-navbar')%>
 
-<div class="container my-4 container-width ">
+<div class="container my-4 container-wide">
     <h2 class="text-center">Articles</h2>
     <hr>
     <a href="/articles/admin/new" class="btn btn-success">Create a new Article</a>
@@ -25,9 +25,9 @@
                     <td><%=article.title%></td>
                     <td><%=article.slug%></td>
                     <td><%=article['category.title']%></td>
-                    <td>
+                    <td class="d-flex flex-nowrap">
                         <a href="/articles/admin/edit/<%=article.id%>" type="submit" 
-                        class="btn btn-sm btn-warning">
+                        class="btn btn-sm btn-warning mr-1">
                             Edit
                         </a>
                         <form method="POST" action="/articles/admin/delete" 
