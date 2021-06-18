@@ -1,12 +1,14 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const connection = require("./database/database")
-const ArticleModel = require('./models/Article')
-const CategoryModel = require('./models/Category')
+const connection = require("./database/database");
+const ArticleModel = require('./models/Article');
+const CategoryModel = require('./models/Category');
+const UserModel = require('./models/User');
 
 //Import das controllers
-const articlesController = require('./controllers/ArticlesController')
-const categoriesController = require('./controllers/CategoriesController')
+const articlesController = require('./controllers/ArticlesController');
+const categoriesController = require('./controllers/CategoriesController');
+const usersController = require('./controllers/UsersController');
 
 const port = 8080;
 const app = express();
@@ -21,9 +23,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Configurando middlewares das controllers
-app.use('/categories', categoriesController)
-app.use('/articles', articlesController)
+app.use('/categories', categoriesController);
+app.use('/articles', articlesController);
+app.use('/users', usersController);
 
+
+//Index
 app.get('/', (req, res) => {
     ArticleModel.findAll({ order: [['id', 'DESC']], limit: 4 }).then((articles) => {
         CategoryModel.findAll({ raw: true }).then(categories => {
@@ -32,6 +37,7 @@ app.get('/', (req, res) => {
     });
 });
 
+//Get Artigo
 app.get('/:slug', (req, res) => {
     const slug = req.params.slug
     
@@ -48,6 +54,7 @@ app.get('/:slug', (req, res) => {
         .catch(() => res.redirect('/'))
 });
 
+//Get Lista de Artigos pela Categoria
 app.get('/category/:slug', (req, res) => {
     const slug = req.params.slug
     
@@ -63,6 +70,7 @@ app.get('/category/:slug', (req, res) => {
     }).catch(() => res.redirect('/'))
 });
 
+//Get Lista de Artigos por página
 app.get('/articles/page/:num', (req, res) => {
     const page = +req.params.num;
     let offset = 0;
