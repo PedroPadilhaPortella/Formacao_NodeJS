@@ -1,26 +1,38 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const session = require('express-session');
+
 const connection = require("./database/database");
 const ArticleModel = require('./models/Article');
 const CategoryModel = require('./models/Category');
-const UserModel = require('./models/User');
 
-//Import das controllers
 const articlesController = require('./controllers/ArticlesController');
 const categoriesController = require('./controllers/CategoriesController');
 const usersController = require('./controllers/UsersController');
+const router = require('./controllers/ArticlesController');
 
 const port = 8080;
 const app = express();
 
-connection.authenticate()
-    .then(() => console.log('Conexão efetuada com o Banco de Dados'))
-    .catch(() => console.log('Erro ao conectar com o banco de dados'))
 
+//Conexão do Banco de Dados
+connection.authenticate()
+.then(() => console.log('Conexão efetuada com o Banco de Dados'))
+.catch(() => console.log('Erro ao conectar com o banco de dados'))
+
+
+//Configurações
+app.use(session({
+    secret: 'secret-key-guidepress', 
+    cookie: { maxAge: 30000 }
+}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+
 
 //Configurando middlewares das controllers
 app.use('/categories', categoriesController);
