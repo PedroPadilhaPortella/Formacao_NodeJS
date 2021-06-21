@@ -88,7 +88,7 @@ router.post('/admin/update', (req, res) => {
 });
 
 
-//Login
+// Login
 router.get('/admin/login', (req, res) => {
     res.render('admin/users/login')
 });
