@@ -33,7 +33,6 @@ app.use(bodyParser.json());
 
 
 
-
 //Configurando middlewares das controllers
 app.use('/categories', categoriesController);
 app.use('/articles', articlesController);
