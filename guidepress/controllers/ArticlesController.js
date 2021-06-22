@@ -2,19 +2,22 @@ const router = require('express').Router();
 const slugify = require('slugify')
 const CategoryModel = require('../models/Category')
 const ArticleModel = require('../models/Article');
+const authentication = require('../middlewares/authentication');
 
 // Lista de Artigos
-router.get('/admin', (req, res) => {
+router.get('/admin', authentication, (req, res) => {
+    const sessao = req.session.user;
     ArticleModel.findAll({ raw: true, include: [{ model: CategoryModel, required: true }] })
     .then((articles) => {
-        res.render('admin/articles/index', { articles })
+        res.render('admin/articles/index', { articles, sessao })
     })
 });
 
 // Novo Artigo
-router.get('/admin/new', (req, res) => {
+router.get('/admin/new', authentication, (req, res) => {
+    const sessao = req.session.user;
     CategoryModel.findAll({ raw: true}).then(categories => {
-        res.render('admin/articles/new', { categories })
+        res.render('admin/articles/new', { categories, sessao })
     });
 });
 
@@ -41,13 +44,14 @@ router.post('/admin/delete', (req, res) => {
 });
 
 // Editar Artigo
-router.get('/admin/edit/:id', (req, res) => {
+router.get('/admin/edit/:id', authentication, (req, res) => {
     const id = req.params.id
+    const sessao = req.session.user;
     if(!isNaN(id)) {
         ArticleModel.findByPk(id).then((article) => {
             if(article != undefined) {
                 CategoryModel.findAll({ raw: true}).then(categories => {
-                    res.render('admin/articles/edit', { article, categories })
+                    res.render('admin/articles/edit', { article, categories, sessao })
                 }).catch(() => res.redirect('/articles/admin'))
             } else {
                 res.redirect('/articles/admin')

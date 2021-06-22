@@ -1,18 +1,21 @@
 const router = require('express').Router();
 const slugify = require('slugify')
 const CategoryModel = require('../models/Category')
+const authentication = require('../middlewares/authentication');
 
 // Lista de Categorias
-router.get('/admin', (req, res) => {
+router.get('/admin', authentication, (req, res) => {
+    const sessao = req.session.user;
     CategoryModel.findAll({ raw: true }).then((categories) => {
         console.log(categories);
-        res.render('admin/categories/index', { categories })
+        res.render('admin/categories/index', { categories, sessao })
     })
 });
 
 // Nova Categoria
-router.get('/admin/new', (req, res) => {
-    res.render('admin/categories/new')
+router.get('/admin/new', authentication, (req, res) => {
+    const sessao = req.session.user;
+    res.render('admin/categories/new', { sessao });
 });
 
 // Salvar Categoria
@@ -36,12 +39,13 @@ router.post('/admin/delete', (req, res) => {
 });
 
 // Editar Categoria
-router.get('/admin/edit/:id', (req, res) => {
+router.get('/admin/edit/:id', authentication, (req, res) => {
     const id = req.params.id
+    const sessao = req.session.user;
     if(!isNaN(id)) {
         CategoryModel.findByPk(id).then((category) => {
             if(category != undefined) {
-                res.render('admin/categories/edit', { category })
+                res.render('admin/categories/edit', { category, sessao })
             } else {
                 res.redirect('/categories/admin')
             }

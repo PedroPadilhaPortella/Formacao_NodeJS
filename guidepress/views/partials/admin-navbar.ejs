@@ -6,7 +6,9 @@
             <a href="/articles/admin" class="nav-link">Articles</a>
             <a href="/users/admin" class="nav-link">Users</a>
         </div>
-        <a class="navbar-brand" href="/">
-            <img src="/img/guia.png" alt="guia">
-        </a>
+        <div class="ml-auto">
+            <% if(sessao) { %>
+                <a href="/logout" class="nav-link text-dark">Logout</a>
+            <% } %>
+        </div>
     </nav>

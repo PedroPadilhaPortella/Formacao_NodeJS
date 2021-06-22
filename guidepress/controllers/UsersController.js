@@ -1,17 +1,20 @@
 const router = require('express').Router();
-const bcrypt = require('bcryptjs')
-const UserModel = require('../models/User')
+const bcrypt = require('bcryptjs');
+const UserModel = require('../models/User');
+const authentication = require('../middlewares/authentication');
 
 // Lista de Usuarios
-router.get('/admin', (req, res) => {
+router.get('/admin', authentication, (req, res) => {
+    const sessao = req.session.user;
     UserModel.findAll().then(users => {
-        res.render('admin/users/index', { users })
+        res.render('admin/users/index', { users, sessao })
     });
 });
 
 // Novo Usuario
-router.get('/admin/create', (req, res) => {
-    res.render('admin/users/create')
+router.get('/admin/create', authentication, (req, res) => {
+    const sessao = req.session.user;
+    res.render('admin/users/create', { sessao });
 });
 
 // Salvar Usuario
@@ -46,12 +49,13 @@ router.post('/admin/delete', (req, res) => {
 });
 
 // Editar Usuário
-router.get('/admin/edit/:id', (req, res) => {
-    const id = req.params.id
+router.get('/admin/edit/:id', authentication, (req, res) => {
+    const id = req.params.id;
+    const sessao = req.session.user;
     if(!isNaN(id)) {
         UserModel.findByPk(id).then((user) => {
             if(user != undefined) {
-                res.render('admin/users/edit', { user })
+                res.render('admin/users/edit', { user, sessao })
             } else {
                 res.redirect('/users/admin')
             }
@@ -87,33 +91,5 @@ router.post('/admin/update', (req, res) => {
     }
 });
 
-
-// Login
-router.get('/admin/login', (req, res) => {
-    res.render('admin/users/login')
-});
-
-router.post('/admin/authenticate', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    UserModel.findOne({ where: { email }})
-        .then(user => {
-            if(user != undefined) {
-                const correct = bcrypt.compareSync(password, user.password);
-                if(correct) {
-                    req.session.user = { id: user.id, email: user.email }
-                    res.json(req.session.user)
-                    console.log(req.session.user)
-                } else {
-                    res.redirect('/users/admin/login')
-                }
-            } else {
-                res.redirect('/users/admin/login')
-            }
-            res.redirect('/users/admin/login')
-        })
-        .catch(() => res.redirect('/users/admin/login'))
-})
 
 module.exports = router;
