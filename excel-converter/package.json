@@ -1,0 +1,16 @@
+{
+  "name": "excel-converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./modules/app.js",
+  "scripts": {
+    "start": "node ./modules/app.js"
+  },
+  "keywords": [],
+  "author": "Pedro Portella",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "html-pdf": "^3.0.1"
+  }
+}
