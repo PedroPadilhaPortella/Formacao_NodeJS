@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
@@ -24,10 +25,16 @@ connection.authenticate()
 
 //Configurações
 app.set('view engine', 'ejs');
+app.use(cors())
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'secret-key-guidepress',  cookie: { maxAge: 86400000 } }));
+app.use(session({ 
+    resave: false, 
+    saveUninitialized: true, 
+    secret: 'secret-key-guidepress',  
+    cookie: { maxAge: 86400000 } 
+}));
 
 
 //Configurando middlewares das controllers
@@ -143,4 +150,4 @@ app.get('/articles/page/:num', (req, res) => {
 }); 
 
 
-app.listen(port, () => console.log(`Server running at https://localhost:${port}`))
+app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
