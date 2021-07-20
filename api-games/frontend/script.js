@@ -1,14 +1,14 @@
 const url = 'http://localhost:3000/games';
 
-const lista = document.getElementById('games')
-
 function alertChanges(message, reload = false) {
     alert(message)
     if(reload)
-        location.reload()
+    location.reload()
 }
 
 async function getGames() {
+    const lista = document.getElementById('games')
+
     await axios.get(url).then(response => {
         games = response.data
         games.forEach(game => {
