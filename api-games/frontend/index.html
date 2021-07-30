@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja de Games</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>GameBoard</title>
 </head>
+
 <body>
-    
-    <h4>Lista de games</h4>
-    <ul id="games"></ul>
-    <hr>
+    <div class="container">
+        <h1>GameBoard</h1>
+        <hr>
 
-    <h4>Novo game</h4>
-    <input type="text" name="id" id="id" placeholder="Id"><br>
-    <input type="text" name="name" id="name" placeholder="Título"><br>
-    <input type="number" name="year" id="year" placeholder="Ano"><br>
-    <input type="number" name="price" id="price" placeholder="Preço"><br>
-    <button type="button" onclick="createGame()">Criar</button>
-    <hr>
+        <div class="card">
+            <h3>Login do Usuário</h3>
+            <p><input type="text" name="email" id="email" placeholder="Email"></p>
+            <p><input type="password" name="password" id="password" placeholder="Senha"></p>
+            <button type="button" onclick="login()" id="login">Entrar</button>
+        </div>
 
-    <h4>Editar game</h4>
-    <input type="text" name="idEdit" id="idEdit" placeholder="Id" readonly><br>
-    <input type="text" name="nameEdit" id="nameEdit" placeholder="Título"><br>
-    <input type="number" name="yearEdit" id="yearEdit" placeholder="Ano"><br>
-    <input type="number" name="priceEdit" id="priceEdit" placeholder="Preço"><br>
-    <button type="button" onclick="updateGame()">Editar</button>
+        <hr>
+        <div class="lista-games">
+            <h1>Lista de Jogos Cadastrados</h1>
+            <ul id="games"></ul>
+        </div>
 
+        <div class="show-new-game">
+            <button type="button" onclick="toggleNewGameDiv()">Adicionar Novo Jogo</button>
+        </div>
+
+        <div class="novo-game" id="novoGameDiv">
+            <h4>Novo game</h4>
+            <span onclick="toggleNewGameDiv()">X</span>
+            <input type="text" name="id" id="id" placeholder="Id"><br>
+            <input type="text" name="name" id="name" placeholder="Título"><br>
+            <input type="number" name="year" id="year" placeholder="Ano"><br>
+            <input type="number" name="price" id="price" placeholder="Preço"><br>
+            <button type="button" onclick="createGame()">Criar</button>
+        </div>
+        
+        <div class="editar-game" id="editarGameDiv">
+            <h4>Editar game</h4>
+            <span onclick="toggleEditGameDiv()">X</span>
+            <input type="text" name="idEdit" id="idEdit" placeholder="Id" readonly><br>
+            <input type="text" name="nameEdit" id="nameEdit" placeholder="Título"><br>
+            <input type="number" name="yearEdit" id="yearEdit" placeholder="Ano"><br>
+            <input type="number" name="priceEdit" id="priceEdit" placeholder="Preço"><br>
+            <button type="button" onclick="updateGame()">Editar</button>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="script.js"></script>
+
 </html>

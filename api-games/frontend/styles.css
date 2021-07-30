@@ -1,0 +1,81 @@
+.container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+h4 {
+    margin: 0.5rem;
+}
+
+.card {
+    border: 2px solid blueviolet;
+    border-radius: 20px;
+    margin: 2rem auto;
+    width: 500px;
+    padding: 10px;
+    background-color: blueviolet;
+    box-shadow: 5px 5px 10px 3px rgba(0,0,0,0.72);
+}
+
+.card input,
+.card button {
+    border: 1px solid;
+    padding: 8px;
+    width: 50%;
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.72);
+}
+ 
+.lista-games {
+    margin-top: 3rem;
+    width: 700px;
+    margin: auto;
+}
+
+.lista-games ul {
+    list-style: none;
+    text-align: start;
+}
+
+.lista-games ul button {
+    text-align: end;
+    margin: 3px;
+}
+
+.show-new-game {
+    padding: 1rem;
+}
+
+.show-new-game button {
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+.novo-game,
+.editar-game {
+    position: relative;
+    border: 2px solid;
+    border-radius: 20px;
+    margin: 1rem auto;
+    width: 500px;
+    padding: 10px;
+    background-color: whitesmoke;
+    display: none;
+}
+
+.novo-game input,
+.editar-game input {
+    margin: 5px;
+    padding: 0.5em;
+    width: 80%;
+}
+
+span {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
+
+span:hover {
+    border: 1px solid;
+}

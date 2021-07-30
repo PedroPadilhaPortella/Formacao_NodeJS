@@ -58,10 +58,10 @@ router.put('/users/:id', authenticate, async(req, res) => {
 router.post('/auth', async(req, res) => {
     try {
         var { email, password } = req.body
-        if(!email || !password)  res.status(400).json({ message: 'Email ou Senha Inválidos'})
+        if(!email || !password)  return res.status(400).json({ message: 'Email ou Senha Inválidos'})
         
         const user = await UsersModel.findOne({ where: { email }})
-        if(!user)  res.status(404).json({ message: 'Usuário não Encontrado'})
+        if(!user)  return res.status(404).json({ message: 'Usuário não Encontrado'})
         if(password !== user.password)  res.status(401).json({ message: 'Senha Incorreta'})
 
         jwt.sign(
