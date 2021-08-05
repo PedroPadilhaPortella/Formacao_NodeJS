@@ -16,7 +16,11 @@ const doc = {
     produces: ['application/json'],
     tags: [
         {
-            "name": "User",
+            "name": "Games",
+            "description": "Endpoints"
+        },
+        {
+            "name": "Users",
             "description": "Endpoints"
         }
     ],
@@ -24,17 +28,9 @@ const doc = {
         api_key: {
             type: "apiKey",
             name: "api_key",
-            in: "header"
+            in: "header",
+            authorizationUrl: "http://localhost/auth"
         },
-        petstore_auth: {
-            type: "oauth2",
-            authorizationUrl: "http://localhost/auth",
-            flow: "implicit",
-            scopes: {
-                read_pets: "read your pets",
-                write_pets: "modify pets in your account"
-            }
-        }
     },
     definitions: {
         User: {

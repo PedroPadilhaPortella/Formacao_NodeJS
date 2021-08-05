@@ -3,6 +3,9 @@ const GameModel = require('../models/Game')
 const { authenticate } = require('../middlewares')
 
 router.get('/games', authenticate, async(req, res) => {
+    // #swagger.tags = ['Games']
+    // #swagger.description = 'Endpoint para obter todos os Games.'
+    
     const games = await GameModel.findAll();
     res.status(200).json(games)
 });

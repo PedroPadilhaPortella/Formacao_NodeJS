@@ -7,25 +7,20 @@ const GameController = require('./controllers/GameController')
 const UsersController = require('./controllers/UsersController')
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-// const swaggerAutogen = require('swagger-autogen')()
-
-
-// const outputFile = './swagger.json'
-// const endpointsFiles = ['./controllers/GameController.js', './controllers/UsersController.js']
-// swaggerAutogen(outputFile, endpointsFiles)
-
 
 const port = 3000
 const app = express()
 
 connection.authenticate()
-.then(() => console.log('Conexão efetuada com o Banco de Dados'))
-.catch(() => console.log('Erro ao conectar com o banco de dados'))
+    .then(() => console.log('Conexão efetuada com o Banco de Dados'))
+    .catch(() => console.log('Erro ao conectar com o banco de dados'))
+    
 
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.status(200).end());
