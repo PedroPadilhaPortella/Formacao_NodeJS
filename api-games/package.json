@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "swagger-autogen": "node swagger.js"
   },
   "keywords": [],
   "author": "pedro portella",
@@ -16,6 +17,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "swagger-autogen": "^2.11.1",
+    "swagger-ui-express": "^4.1.6"
   }
 }
