@@ -1,12 +1,16 @@
 const router = require('express').Router();
 const UsersModel = require('../models/Users')
+
 const jwt = require('jsonwebtoken')
-const { authenticate } = require('../middlewares')
 const { JWTSecret } = require('../utils')
+const { authenticate } = require('../middlewares')
+
+const { generateLinks } = require('../utils/hateoas')
 
 router.get('/users', async(req, res) => {
     const users = await UsersModel.findAll();
-    res.status(200).json(users)
+    const HATEOAS = generateLinks([{href: 'users', method: 'POST', rel: 'register_user'}])
+    res.status(200).json({users, _links: HATEOAS })
 });
 
 router.get('/users/:id', authenticate, async(req, res) => {
@@ -14,7 +18,14 @@ router.get('/users/:id', authenticate, async(req, res) => {
         const id = req.params.id
         const user = await UsersModel.findOne({where: {id}})
         if(!user) return res.sendStatus(404)
-        return res.status(200).json(user)
+
+        const HATEOAS = [
+            {href: 'http:localhost:3000/users', method: 'POST', rel: 'add_user'},
+            {href: `http:localhost:3000/users/${id}`, method: 'PUT', rel: 'update_user'},
+            {href: `http:localhost:3000/users/${id}`, method: 'DELETE', rel: 'delete_user'}
+        ];
+
+        return res.status(200).json({user, _links: HATEOAS })
     } catch(err) {
         return res.status(500).send({ message: err.message })
     }
@@ -24,7 +35,14 @@ router.post('/users', authenticate, async(req, res) => {
     try {
         user = { ...req.body }
         user = await UsersModel.create(user);
-        return res.status(201).send(user)
+
+        const HATEOAS = [
+            {href: `http:localhost:3000/users/${user.id}`, method: 'GET', rel: 'get_user'},
+            {href: `http:localhost:3000/users/${user.id}`, method: 'PUT', rel: 'update_user'},
+            {href: `http:localhost:3000/users/${user.id}`, method: 'DELETE', rel: 'delete_user'}
+        ];
+
+        return res.status(201).send({user, _links: HATEOAS })
     } catch(err) {
         return res.status(500).send({ message: err.message })
     }
@@ -49,6 +67,12 @@ router.put('/users/:id', authenticate, async(req, res) => {
         let user = { ...req.body }
         await UsersModel.update(user, { where: { id }})
 
+        const HATEOAS = [
+            {href: `http:localhost:3000/users/${id}`, method: 'GET', rel: 'get_user'},
+            {href: `http:localhost:3000/users/${id}`, method: 'PUT', rel: 'update_user'},
+            {href: `http:localhost:3000/users/${id}`, method: 'DELETE', rel: 'delete_user'}
+        ];
+
         return res.status(200).end()
     } catch(err) {
         return res.status(500).send({ message: err.message })
@@ -67,7 +91,7 @@ router.post('/auth', async(req, res) => {
         jwt.sign(
             { id: user.id, email: user.email },
             JWTSecret,
-            { expiresIn: '6h' },
+            { expiresIn: '12h' },
             (err, token) => {
                 if(err) res.status(500).send({ message: 'Erro, tente logar novamente mais tarde'})
                 return res.status(200).json({ token });                

@@ -16,7 +16,7 @@ connection.authenticate()
     .catch(() => console.log('Erro ao conectar com o banco de dados'))
     
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors())
 app.use(bodyParser.urlencoded({
     extended: false
