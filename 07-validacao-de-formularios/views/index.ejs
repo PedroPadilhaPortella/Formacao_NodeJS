@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Formulários</title>
+</head>
+
+<body>
+    <form method="POST" action="/form" class="formulario">
+        <h1>Validação de Formulários</h1>
+        <input type="email" name="email" id="email" value="<%=email%>" placeholder="email">
+        <span><%=emailError%></span>
+        <input type="text" name="nome" id="nome" value="<%=nome%>" placeholder="nome">
+        <span><%=nomeError%></span>
+        <input type="number" name="pontos" id="pontos" value="<%=pontos%>" placeholder="pontos">
+        <span><%=pontosError%></span>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+
+</html>
+
+<style>
+    .formulario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 200px 200px;
+        padding: 20px 0;
+        background-color: lightskyblue;
+        border-radius: 20px;
+        border: solid 1px deepskyblue;
+        box-shadow: 0 8px 8px -4px rgb(54, 123, 146);
+    }
+
+    h1 {
+        color: white;
+        margin: 5%;
+    }
+
+    input {
+        padding: 5px;
+        border-radius: 5px;
+        margin: 4px;
+    }
+    
+    button {
+        padding: 5px;
+        margin: 4px;
+        border-radius: 5px;
+        background-color: darkviolet;
+        color: white;
+    }
+
+    span {
+        color: crimson;
+        
+    }
+</style>
