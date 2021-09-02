@@ -1,0 +1,16 @@
+{
+  "name": "knex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.95.10",
+    "mysql2": "^2.3.0"
+  }
+}
