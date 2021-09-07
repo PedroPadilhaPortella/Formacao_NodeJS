@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "insert": "node ./knex/insert.js",
+    "select": "node ./knex/select.js",
+    "nested": "node ./knex/nested_queries.js",
+    "delete": "node ./knex/delete.js",
+    "update": "node ./knex/update.js",
+    "order": "node ./knex/order_by.js",
+    "1to1": "node ./knex/one_to_one.js",
+    "1toM": "node ./knex/one_to_many.js"
   },
   "keywords": [],
   "author": "",
