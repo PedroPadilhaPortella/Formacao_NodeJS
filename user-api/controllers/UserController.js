@@ -1,8 +1,29 @@
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
 const User = require('../services/User')
 const PasswordToken = require('../services/PasswordToken')
 
+const secret = 'jwtUserAPISecret'
+
 class UserController 
 {
+    async login(req, res) {
+        const { email, password } = req.body
+
+        const user = await User.findByEmail(email)
+        if(user == undefined) {
+            return res.status(404).send('Usuário não encontrado')
+        }
+
+        const isPasswordEqual = await bcrypt.compare(password, user.password)
+        if(!isPasswordEqual) {
+            return res.status(401).send('Senha Inválida')
+        }
+
+        const token = jwt.sign({ email: user.email, role: user.role }, secret);
+        return res.status(200).json({token: token })
+    }
+
     async getAllUsers(req, res) {
         const users = await User.findAll()
         return res.status(200).json(users)
