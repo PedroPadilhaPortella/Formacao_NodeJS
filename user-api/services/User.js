@@ -1,5 +1,5 @@
 var knex = require('../database/connection')
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt');
 
 // Service
 class User {
@@ -22,6 +22,32 @@ class User {
         }
     }
 
+    async findByEmail(email){
+        try{
+            var result = await knex.select(["id","email","password","role","name"]).where({email:email}).table("users");
+            
+            if(result.length > 0){
+                return result[0];
+            }else{
+                return undefined;
+            }
+
+        }catch(err){
+            console.log(err);
+            return undefined;
+        }
+    }
+    
+    async findEmail(email){
+        try{
+            var result = await knex.select("*").from("users").where({email: email});
+            return result.length > 0;
+        }catch(err){
+            console.log(err);
+            return false;
+        }
+    }
+
     async create(name, email, password) {
         try {
             const hash = await bcrypt.hash(password, 10);
@@ -36,7 +62,7 @@ class User {
         const editedUser = {};
 
         if(user == undefined) {
-            return { status: false, err: 'Usuário não encontrado' }
+            return { status: false, error: 'Usuário não encontrado' }
         }
         
         editedUser.name = name != undefined ? name : user.name;
@@ -48,7 +74,7 @@ class User {
             return { status: true }
         } catch (error) {
             console.warn(error);
-            return { status: false, err: error }
+            return { status: false, error: error }
         }
     }
 
@@ -56,7 +82,7 @@ class User {
         const user = await this.findById(id);
 
         if(user == undefined) {
-            return { status: false, err: 'Usuário não encontrado' }
+            return { status: false, error: 'Usuário não encontrado' }
         }
 
         try {
@@ -64,10 +90,21 @@ class User {
             return { status: true }
         } catch (error) {
             console.warn(error);
-            return { status: false, err: error }
+            return { status: false, error: error }
         }
     }
 
+    async changePassword(newPassword, id, token) {
+        try {
+            const hash = await bcrypt.hash(newPassword, 10);
+            await knex.update({ password: hash }).where({ id: id }).table('users');
+
+            return { status: true }
+        } catch (error) {
+            console.warn(error)
+            return { status: false }
+        }
+    }
     
     async findEmail(email) {
         try {
