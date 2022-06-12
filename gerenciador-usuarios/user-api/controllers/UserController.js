@@ -10,6 +10,10 @@ class UserController
     async login(req, res) {
         const { email, password } = req.body
 
+        if(email == '' || password == '') {
+            return res.status(400).send('Email ou senha inválidos')
+        }
+
         const user = await User.findByEmail(email)
         if(user == undefined) {
             return res.status(404).send('Usuário não encontrado')
@@ -82,9 +86,11 @@ class UserController
             return res.status(400).send('Cargo Inválido')
         }
 
+        const user = await User.findById(id);
+
         if(email != undefined) {
             const emailAlreadyExist = await User.findEmail(email);
-            if(emailAlreadyExist) {
+            if(emailAlreadyExist && user.email != email) {
                 res.status(406)
                 return res.send('Email já está sendo usado por outro usuário')
             }
