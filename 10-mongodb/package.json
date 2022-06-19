@@ -1,0 +1,16 @@
+{
+  "name": "10-mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^6.4.0",
+    "nodemon": "^2.0.16"
+  }
+}
