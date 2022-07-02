@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/jest": "^28.1.4",
+    "bcrypt": "^5.0.1",
     "express": "^4.18.1",
     "jest": "^28.1.2",
     "jsonwebtoken": "^8.5.1",
