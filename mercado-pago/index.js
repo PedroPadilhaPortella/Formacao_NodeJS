@@ -54,6 +54,10 @@ app.post('/notify', (req, res) => {
                 const pagamento = data.body.results[0];
                 if(pagamento != undefined) {
                     console.log(pagamento)
+
+                    if(pagamento.status == 'approved') {
+                        // Registrar pagamento no banco de dados como aprovado
+                    }
                 } else {
                     console.log('Pagamento não encontrado')
                 }
