@@ -13,8 +13,8 @@ const articlesController = require('./controllers/ArticlesController');
 const categoriesController = require('./controllers/CategoriesController');
 const usersController = require('./controllers/UsersController');
 
-const port = 8080;
 const app = express();
+app.locals = { PORT: 8080 }
 
 
 //Conexão do Banco de Dados
@@ -150,4 +150,4 @@ app.get('/articles/page/:num', (req, res) => {
 }); 
 
 
-app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
+app.listen(app.locals.PORT, () => console.log(`Server running at http://localhost:${app.locals.PORT}`))
