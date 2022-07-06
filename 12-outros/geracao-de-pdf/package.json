@@ -1,0 +1,16 @@
+{
+  "name": "geracao-de-pdf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "html-pdf": "^3.0.1"
+  }
+}
